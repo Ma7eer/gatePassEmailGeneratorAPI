@@ -6,10 +6,12 @@ const logger = require("morgan");
 const helmet = require("helmet");
 const winston = require("winston");
 const { Loggly } = require("winston-loggly-bulk");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 require("dotenv").config();
 
-const indexRouter = require("./routes/index");
+const companiesRouter = require("./routes/companies");
 const usersRouter = require("./routes/users");
 
 const app = express();
@@ -21,7 +23,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+// Documentation setup
+// Swagger Options
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Gate Pass Email Generator API",
+      description: "API to get information for Gate Pass Email Generator",
+      contact: {
+        name: "Maher Alkendi"
+      },
+      servers: ["http://localhost:3000"]
+    }
+  },
+  apis: ["./routes/index.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+companiesRouter.use("/api-docs", swaggerUi.serve);
+companiesRouter.get("/api-docs", swaggerUi.setup(swaggerDocs));
+
+app.use("/", companiesRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
