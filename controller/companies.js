@@ -14,6 +14,19 @@ const getCompanies = async (req, res) => {
   }
 };
 
+const getCompany = async (req, res) => {
+  try {
+    await client.query(query.getCompany, [req.body.id], (err, results) => {
+      if (err) {
+        res.status(502).json({ message: "Error running sql query" });
+      }
+      res.status(200).json(results.rows);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const addNewCompany = async (req, res) => {
   try {
     client.query(
@@ -35,7 +48,7 @@ const editExistingCompany = async (req, res) => {
   try {
     await client.query(
       query.editExistingCompany,
-      [req.body.companyName],
+      [req.body.companyName, req.body.id],
       (err, results) => {
         if (err) {
           res.status(502).json({ message: "Error running sql query" });
@@ -48,8 +61,27 @@ const editExistingCompany = async (req, res) => {
   }
 };
 
+const deleteExistingCompany = async (req, res) => {
+  try {
+    await client.query(
+      query.deleteExistingCompany,
+      [req.body.id],
+      (err, results) => {
+        if (err) {
+          res.status(502).json({ message: "Error running sql query" });
+        }
+        res.status(200).json({ message: "Resource deleted" });
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   getCompanies,
+  getCompany,
   addNewCompany,
-  editExistingCompany
+  editExistingCompany,
+  deleteExistingCompany
 };

@@ -17,6 +17,17 @@ router.get("/", controller.getCompanies);
 /**
  * @swagger
  * /companies:
+ * getOne:
+ *  description: Use to get one customer
+ *  responses:
+ *    '200':
+ *      description: A successful response
+ */
+router.get("/", controller.getCompany);
+
+/**
+ * @swagger
+ * /companies:
  * post:
  *  description: Use to post new customer
  *  responses:
@@ -36,8 +47,15 @@ router.post("/", controller.addNewCompany);
  */
 router.put("/", controller.editExistingCompany);
 
-// get one
-// edit one
-// delete one
+/**
+ * @swagger
+ * /companies:
+ * delete:
+ *  description: Use to delete existing customer
+ *  responses:
+ *    '200':
+ *      description: A successful response
+ */
+router.delete("/", controller.deleteExistingCompany);
 
 module.exports = router;
