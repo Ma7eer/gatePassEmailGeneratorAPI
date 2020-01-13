@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const helmet = require("helmet");
+const cors = require("cors");
 const winston = require("winston");
 const { Loggly } = require("winston-loggly-bulk");
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -16,6 +17,7 @@ const usersRouter = require("./routes/users");
 
 const app = express();
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(helmet());
 app.use(express.json());
@@ -33,7 +35,7 @@ const swaggerOptions = {
       contact: {
         name: "Maher Alkendi"
       },
-      servers: ["http://localhost:3000"]
+      servers: [`http://localhost:${process.env.PORT}`]
     }
   },
   apis: ["./routes/index.js"]
@@ -44,7 +46,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 companiesRouter.use("/api-docs", swaggerUi.serve);
 companiesRouter.get("/api-docs", swaggerUi.setup(swaggerDocs));
 
-app.use("/", companiesRouter);
+app.use("/companies", companiesRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
