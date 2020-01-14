@@ -2,12 +2,14 @@ const client = require("../db/config");
 const query = require("../data/queries");
 
 let data = {
-  TABLE: "companies",
-  COLUMN_ONE: "company_id",
-  COLUMN_TWO: "company_name"
+  TABLE: "employees",
+  COLUMN_ONE: "employee_id",
+  COLUMN_TWO: "employee_name",
+  COLUMN_THREE: "employee_civilId",
+  COLUMN_FOUR: "company_id"
 };
 
-const getCompanies = async (req, res) => {
+const getAllEmployees = async (req, res) => {
   try {
     await client.query(query(data).getAll, (err, results) => {
       if (err) {
@@ -20,7 +22,7 @@ const getCompanies = async (req, res) => {
   }
 };
 
-const getCompany = async (req, res) => {
+const getEmployee = async (req, res) => {
   try {
     await client.query(query(data).getOne, [req.body.id], (err, results) => {
       if (err) {
@@ -33,7 +35,7 @@ const getCompany = async (req, res) => {
   }
 };
 
-const addNewCompany = async (req, res) => {
+const addNewEmployee = async (req, res) => {
   try {
     client.query(query(data).addOne, [req.body.companyName], (err, results) => {
       if (err) {
@@ -46,7 +48,7 @@ const addNewCompany = async (req, res) => {
   }
 };
 
-const editExistingCompany = async (req, res) => {
+const editExistingEmployee = async (req, res) => {
   try {
     await client.query(
       query(data).editOne,
@@ -63,7 +65,7 @@ const editExistingCompany = async (req, res) => {
   }
 };
 
-const deleteExistingCompany = async (req, res) => {
+const deleteExistingEmployee = async (req, res) => {
   try {
     await client.query(query(data).deleteOne, [req.body.id], (err, results) => {
       if (err) {
@@ -77,9 +79,9 @@ const deleteExistingCompany = async (req, res) => {
 };
 
 module.exports = {
-  getCompanies,
-  getCompany,
-  addNewCompany,
-  editExistingCompany,
-  deleteExistingCompany
+  getAllEmployees,
+  getEmployee,
+  addNewEmployee,
+  editExistingEmployee,
+  deleteExistingEmployee
 };

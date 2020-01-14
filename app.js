@@ -13,7 +13,7 @@ const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 
 const companiesRouter = require("./routes/companies");
-const usersRouter = require("./routes/users");
+const employeesRouter = require("./routes/employees");
 
 const app = express();
 
@@ -47,7 +47,7 @@ companiesRouter.use("/api-docs", swaggerUi.serve);
 companiesRouter.get("/api-docs", swaggerUi.setup(swaggerDocs));
 
 app.use("/companies", companiesRouter);
-app.use("/users", usersRouter);
+app.use("/employees", employeesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
