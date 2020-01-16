@@ -22,6 +22,23 @@ const getAllEmployees = async (req, res) => {
   }
 };
 
+const getAllEmployeesById = async (req, res) => {
+  try {
+    await client.query(
+      query(data).getAllById,
+      req.params.id,
+      (err, results) => {
+        if (err) {
+          res.status(502).json({ message: "Error running sql query" });
+        }
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getEmployee = async (req, res) => {
   try {
     await client.query(query(data).getOne, [req.body.id], (err, results) => {
@@ -80,6 +97,7 @@ const deleteExistingEmployee = async (req, res) => {
 
 module.exports = {
   getAllEmployees,
+  getAllEmployeesById,
   getEmployee,
   addNewEmployee,
   editExistingEmployee,

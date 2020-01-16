@@ -17,6 +17,17 @@ router.get("/", controller.getAllEmployees);
 /**
  * @swagger
  * /employees:
+ * get:
+ *  description: Use to get all employees
+ *  responses:
+ *    '200':
+ *      description: A successful response
+ */
+router.get("/:id", controller.getAllEmployeesById);
+
+/**
+ * @swagger
+ * /employees:
  * getOne:
  *  description: Use to get one employee
  *  responses:
