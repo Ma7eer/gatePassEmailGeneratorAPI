@@ -19,6 +19,7 @@ const app = express();
 
 const whitelist = [
   "https://gracious-carson-3c0254.netlify.com",
+  "https://gracious-carson-3c0254.netlify.com/Home",
   "http://localhost:3000"
 ];
 
