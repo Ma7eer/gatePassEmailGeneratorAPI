@@ -65,6 +65,7 @@ const editExistingCompany = async (req, res) => {
 
 const deleteExistingCompany = async (req, res) => {
   try {
+    console.log(req.body);
     await client.query(query(data).deleteOne, [req.body.id], (err, results) => {
       if (err) {
         res.status(502).json({ message: "Error running sql query" });
