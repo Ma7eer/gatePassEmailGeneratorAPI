@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
-    "dev": "nodemon ./bin/www"
+    "prod-server": "heroku ps:scale web=1",
+    "dev": "heroku ps:scale web=0 && nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
