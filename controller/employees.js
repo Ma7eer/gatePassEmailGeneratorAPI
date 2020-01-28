@@ -1,5 +1,5 @@
 const client = require("../db/config");
-const query = require("../data/queries");
+const query = require("../data/employeeQueries");
 
 let data = {
   TABLE: "employees",
@@ -54,12 +54,17 @@ const getEmployee = async (req, res) => {
 
 const addNewEmployee = async (req, res) => {
   try {
-    client.query(query(data).addOne, [req.body.companyName], (err, results) => {
-      if (err) {
-        res.status(502).json({ message: "Error running sql query" });
+    client.query(
+      query(data).addOne,
+      [req.body.employee_name, req.body.employee_civilId, req.body.company_id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          res.status(502).json({ message: "Error running sql query" });
+        }
+        res.status(201).json({ message: "New resource created" });
       }
-      res.status(201).json({ message: "New resource created" });
-    });
+    );
   } catch (err) {
     console.log(err);
   }
