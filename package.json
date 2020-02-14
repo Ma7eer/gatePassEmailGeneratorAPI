@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
-    "prod-server": "heroku ps:scale web=1",
+    "prod-server": "git push heroku master && heroku ps:scale web=1",
     "dev": "heroku ps:scale web=0 && nodemon ./bin/www"
   },
   "dependencies": {
