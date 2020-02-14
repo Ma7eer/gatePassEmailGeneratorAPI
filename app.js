@@ -20,6 +20,7 @@ const app = express();
 const whitelist = [
   "https://gracious-carson-3c0254.netlify.com",
   "https://gracious-carson-3c0254.netlify.com/Home",
+  "https://*--gracious-carson-3c0254.netlify.com/*",
   "http://localhost:3000"
 ];
 
@@ -41,7 +42,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.set("view engine", "jade");
+// app.set("view engine", "jade");
 
 // Documentation setup
 // Swagger Options
