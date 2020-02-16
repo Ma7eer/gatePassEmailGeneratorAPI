@@ -12,7 +12,7 @@ const controller = require("../controller/employees");
  *    '200':
  *      description: A successful response
  */
-router.get("/", controller.getAllEmployees);
+router.get("/:id", controller.getAllEmployeesById);
 
 /**
  * @swagger
@@ -23,7 +23,7 @@ router.get("/", controller.getAllEmployees);
  *    '200':
  *      description: A successful response
  */
-router.get("/:id", controller.getAllEmployeesById);
+router.get("/", controller.getAllEmployees);
 
 /**
  * @swagger

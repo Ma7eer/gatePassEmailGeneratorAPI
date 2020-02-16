@@ -26,12 +26,12 @@ const getAllEmployeesById = async (req, res) => {
   try {
     await client.query(
       query(data).getAllById,
-      req.params.id,
+      [req.params.id],
       (err, results) => {
         if (err) {
           res.status(502).json({ message: "Error running sql query" });
         }
-        res.status(200).json(results.rows);
+        res.status(200).json(results);
       }
     );
   } catch (err) {
